@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    image: spring-boot-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - aldeamo-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/test-aldeamo
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Ald3@mo2024!
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  aldeamo-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: Ald3@mo2024!
+      MYSQL_DATABASE: test-aldeamo
+    ports:
+      - "3306:3306"
+
+  adminer:
+    image: adminer
+    ports:
+      - "8081:8080"
